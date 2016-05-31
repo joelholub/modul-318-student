@@ -15,31 +15,16 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        Transport transport = new Transport();
+
         public Form1()
         {
             InitializeComponent();
         }
 
-
-        private void cbTime_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbTime.Checked)
-            {
-                lblTime.Enabled = true;
-                lblTime.Visible = true;
-            }
-            else
-            {
-                lblTime.Enabled = false;
-                lblTime.Visible = false;
-            }
-            
-        }
-
         private void startStationDropdown_TextUpdate(object sender, EventArgs e)
         {
-            String stationEntered = startStationDropdown.Text;
-            Object[] dropdownValues = getDropdownValues(stationEntered, "startStationDropdown");
+            Object[] dropdownValues = Search.getDropdownValues(startStationDropdown.Text, startStationDropdown, transport);
 
             if (dropdownValues != null)
             {
@@ -49,8 +34,7 @@ namespace WindowsFormsApplication1
 
         private void endStationDropdown_TextUpdate(object sender, EventArgs e)
         {
-            String stationEntered = endStationDropdown.Text;
-            Object[] dropdownValues = getDropdownValues(stationEntered, "endStationDropdown");
+            Object[] dropdownValues = Search.getDropdownValues(endStationDropdown.Text, endStationDropdown, transport);
 
             if (dropdownValues != null)
             {
@@ -60,8 +44,7 @@ namespace WindowsFormsApplication1
 
         private void stationBoardDropdown_TextUpdate(object sender, EventArgs e)
         {
-            String stationEntered = stationBoardDropdown.Text;
-            Object[] dropdownValues = getDropdownValues(stationEntered, "stationBoardDropdown");
+            Object[] dropdownValues = Search.getDropdownValues(stationBoardDropdown.Text, stationBoardDropdown, transport);
 
             if (dropdownValues != null)
             {
@@ -69,118 +52,24 @@ namespace WindowsFormsApplication1
             }
         }
 
-        //Auslagern!!!
-        private Object[] getDropdownValues(String stationEntered, String dropdown)
-        {
-            if (stationEntered.Length > 3)
-            {
-
-                if (dropdown.Equals("startStationDropdown"))
-                {
-                    startStationDropdown.Items.Clear();
-                    startStationDropdown.SelectionStart = stationEntered.Length;
-                    startStationDropdown.SelectedItem = null;
-                    startStationDropdown.DroppedDown = true;
-                }
-                else if(dropdown.Equals("endStationDropdown"))
-                {
-                    endStationDropdown.Items.Clear();
-                    endStationDropdown.SelectionStart = stationEntered.Length;
-                    endStationDropdown.SelectedItem = null;
-                    endStationDropdown.DroppedDown = true;
-                }
-                else if (dropdown.Equals("stationBoardDropdown"))
-                {
-                    stationBoardDropdown.Items.Clear();
-                    stationBoardDropdown.SelectionStart = stationEntered.Length;
-                    stationBoardDropdown.SelectedItem = null;
-                    stationBoardDropdown.DroppedDown = true;
-                }
-                Stations station = new Stations();
-                Transport transport = new Transport();
-
-                station = transport.GetStations(stationEntered);
-
-                Object[] dropdownValues = new Object[station.StationList.Count];
-
-                int i = 0;
-                foreach (var currentStation in station.StationList)
-                {
-                    dropdownValues[i] = (currentStation.Name);
-                    i++;
-                }
-                return dropdownValues;
-            }
-            return null;
-        }
-
         private void cmdShowConnections_Click(object sender, EventArgs e)
         {
             if (!startStationDropdown.Text.Equals("") && !endStationDropdown.Text.Equals(""))
             {
                 lvConnections.Items.Clear();
-
-                Connections connections = new Connections();
-                Transport transport = new Transport();
-                connections = transport.GetConnections(startStationDropdown.Text, endStationDropdown.Text);
-
-
-                ListViewItem[] lvi = new ListViewItem[connections.ConnectionList.Count];
-
-                int i = 0;
-                foreach (var connection in connections.ConnectionList)
-                {
-
-                    lvi[i] = new ListViewItem(DateTime.Parse(connection.From.Departure).ToShortTimeString());
-                    lvi[i].SubItems.Add(connection.From.Station.Name);
-                    lvi[i].SubItems.Add(DateTime.Parse(connection.To.Arrival).ToShortTimeString());
-                    lvi[i].SubItems.Add(connection.To.Station.Name);
-                    lvi[i].SubItems.Add(connection.Duration.Substring(3,2) +  "h " + connection.Duration.Substring(6, 2) + "min ");
-                    i++;
-                }
-                lvConnections.Items.AddRange(lvi);
+                lvConnections.Items.AddRange(ShowConnections.getListViewItems(startStationDropdown.Text, endStationDropdown.Text, transport));
             }
-        }
-
-        private void lvConnections_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void cmdStationBoard_Click(object sender, EventArgs e)
         {
-            lvConnections.Items.Clear();
-
-            Transport transport = new Transport();
-            StationBoardRoot stationBoard = new StationBoardRoot();
-
-            String idStation = transport.GetStations(stationBoardDropdown.Text).StationList.First().Id;
-            stationBoard = transport.GetStationBoard(stationBoardDropdown.Text, idStation);
-
-            ListViewItem[] lvi = new ListViewItem[stationBoard.Entries.Count];
-
-            int i = 0;
-
-            foreach (var entry in stationBoard.Entries)
-            {
-                lvi[i] = new ListViewItem(stationBoard.Station.Name);
-                lvi[i].SubItems.Add(entry.Name);
-                lvi[i].SubItems.Add(DateTime.Parse(entry.Stop.Departure.ToString()).ToShortTimeString());
-                lvi[i].SubItems.Add(entry.To);
-                i++;
-            }
-            lvDepartureTable.Items.AddRange(lvi);
+            lvDepartureTable.Items.Clear();
+            lvDepartureTable.Items.AddRange(ShowStationBoards.showStationBoardRoot(stationBoardDropdown.Text, transport));
         }
 
         private void btnShowStartStationMap_Click(object sender, EventArgs e)
         {
             Stations station = new Stations();
-            Transport transport = new Transport();
             station = transport.GetStations(startStationDropdown.Text);
             showOnMap(station);
         }
@@ -188,7 +77,6 @@ namespace WindowsFormsApplication1
         private void btnShowEndStationMap_Click(object sender, EventArgs e)
         {
             Stations station = new Stations();
-            Transport transport = new Transport();
             station = transport.GetStations(endStationDropdown.Text);
             showOnMap(station);
         }
@@ -196,7 +84,6 @@ namespace WindowsFormsApplication1
         private void btnShowStationBoardMap_Click(object sender, EventArgs e)
         {
             Stations station = new Stations();
-            Transport transport = new Transport();
             station = transport.GetStations(stationBoardDropdown.Text);
             showOnMap(station);
         }

@@ -32,10 +32,6 @@
             this.cmdShowConnections = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cbTime = new System.Windows.Forms.CheckBox();
-            this.lblTime = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.endStationDropdown = new System.Windows.Forms.ComboBox();
             this.startStationDropdown = new System.Windows.Forms.ComboBox();
             this.lvConnections = new System.Windows.Forms.ListView();
@@ -47,7 +43,6 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.btnShowEndStationMap = new System.Windows.Forms.PictureBox();
             this.btnShowStartStationMap = new System.Windows.Forms.PictureBox();
-            this.panel9 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -60,11 +55,9 @@
             this.clmnTo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.stationBoardDropdown = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnShowEndStationMap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShowStartStationMap)).BeginInit();
-            this.panel9.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -98,54 +91,6 @@
             this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "Endstation:";
-            // 
-            // cbTime
-            // 
-            this.cbTime.AutoSize = true;
-            this.cbTime.Location = new System.Drawing.Point(7, 12);
-            this.cbTime.Name = "cbTime";
-            this.cbTime.Size = new System.Drawing.Size(50, 17);
-            this.cbTime.TabIndex = 6;
-            this.cbTime.Text = "Zeit?";
-            this.cbTime.UseVisualStyleBackColor = true;
-            this.cbTime.CheckedChanged += new System.EventHandler(this.cbTime_CheckedChanged);
-            // 
-            // lblTime
-            // 
-            this.lblTime.AutoSize = true;
-            this.lblTime.Enabled = false;
-            this.lblTime.Location = new System.Drawing.Point(7, 36);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(28, 13);
-            this.lblTime.TabIndex = 9;
-            this.lblTime.Text = "Zeit:";
-            this.lblTime.Visible = false;
-            // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Enabled = false;
-            this.radioButton1.Location = new System.Drawing.Point(158, 34);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(65, 17);
-            this.radioButton1.TabIndex = 11;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Abfahrt?";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.Visible = false;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Enabled = false;
-            this.radioButton2.Location = new System.Drawing.Point(238, 34);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(68, 17);
-            this.radioButton2.TabIndex = 12;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Ankunft?";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.Visible = false;
             // 
             // endStationDropdown
             // 
@@ -183,7 +128,6 @@
             this.lvConnections.TabIndex = 13;
             this.lvConnections.UseCompatibleStateImageBehavior = false;
             this.lvConnections.View = System.Windows.Forms.View.Details;
-            this.lvConnections.SelectedIndexChanged += new System.EventHandler(this.lvConnections_SelectedIndexChanged);
             // 
             // Abfahrt
             // 
@@ -227,6 +171,7 @@
             // btnShowEndStationMap
             // 
             this.btnShowEndStationMap.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnShowEndStationMap.Enabled = false;
             this.btnShowEndStationMap.Image = global::WindowsFormsApplication1.Properties.Resources.imgres_disabled;
             this.btnShowEndStationMap.Location = new System.Drawing.Point(300, 32);
             this.btnShowEndStationMap.Name = "btnShowEndStationMap";
@@ -249,23 +194,10 @@
             this.btnShowStartStationMap.TabStop = false;
             this.btnShowStartStationMap.Click += new System.EventHandler(this.btnShowStartStationMap_Click);
             // 
-            // panel9
-            // 
-            this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel9.Controls.Add(this.radioButton2);
-            this.panel9.Controls.Add(this.cbTime);
-            this.panel9.Controls.Add(this.lblTime);
-            this.panel9.Controls.Add(this.radioButton1);
-            this.panel9.Location = new System.Drawing.Point(348, 6);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(313, 66);
-            this.panel9.TabIndex = 16;
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -276,7 +208,6 @@
             // 
             this.tabPage1.Controls.Add(this.panel8);
             this.tabPage1.Controls.Add(this.cmdShowConnections);
-            this.tabPage1.Controls.Add(this.panel9);
             this.tabPage1.Controls.Add(this.lvConnections);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -304,6 +235,7 @@
             // btnShowStationBoardMap
             // 
             this.btnShowStationBoardMap.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnShowStationBoardMap.Enabled = false;
             this.btnShowStationBoardMap.Image = ((System.Drawing.Image)(resources.GetObject("btnShowStationBoardMap.Image")));
             this.btnShowStationBoardMap.Location = new System.Drawing.Point(247, 10);
             this.btnShowStationBoardMap.Name = "btnShowStationBoardMap";
@@ -378,16 +310,6 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Station";
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(676, 310);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Verbindungen in der Nähe";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -395,14 +317,11 @@
             this.ClientSize = new System.Drawing.Size(683, 333);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "Verbi";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "Fahrplan Tool";
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnShowEndStationMap)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnShowStartStationMap)).EndInit();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -417,10 +336,6 @@
         private System.Windows.Forms.Button cmdShowConnections;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox cbTime;
-        private System.Windows.Forms.Label lblTime;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.ComboBox endStationDropdown;
         private System.Windows.Forms.ComboBox startStationDropdown;
         private System.Windows.Forms.ListView lvConnections;
@@ -430,7 +345,6 @@
         private System.Windows.Forms.ColumnHeader Ankunftstation;
         private System.Windows.Forms.ColumnHeader Reisezeit;
         private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -445,7 +359,6 @@
         private System.Windows.Forms.PictureBox btnShowEndStationMap;
         private System.Windows.Forms.PictureBox btnShowStartStationMap;
         private System.Windows.Forms.PictureBox btnShowStationBoardMap;
-        private System.Windows.Forms.TabPage tabPage3;
     }
 }
 
