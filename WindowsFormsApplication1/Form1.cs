@@ -16,6 +16,7 @@ namespace WindowsFormsApplication1
     public partial class Form1 : Form
     {
         Transport transport = new Transport();
+        const String msgError = "Es ist ein Fehler aufgetreten: ";
 
         public Form1()
         {
@@ -37,7 +38,7 @@ namespace WindowsFormsApplication1
             }
             catch (Exception exc)
             {
-                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+                MessageBox.Show(msgError + exc.Message);
             }
 
 
@@ -58,7 +59,7 @@ namespace WindowsFormsApplication1
             }
             catch(Exception exc)
             {
-                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+                MessageBox.Show(msgError + exc.Message);
             }
             
         }
@@ -87,7 +88,7 @@ namespace WindowsFormsApplication1
             }
             catch(Exception exc)
             {
-                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+                MessageBox.Show(msgError + exc.Message);
             }
             
         }
@@ -103,7 +104,7 @@ namespace WindowsFormsApplication1
             }
             catch(Exception exc)
             {
-                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+                MessageBox.Show(msgError + exc.Message);
             }
             
         }
@@ -119,7 +120,7 @@ namespace WindowsFormsApplication1
             }
             catch(Exception exc)
             {
-                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+                MessageBox.Show(msgError + exc.Message);
             }
             
         }
