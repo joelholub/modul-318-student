@@ -23,6 +23,7 @@ namespace WindowsFormsApplication1
 
             foreach (var entry in stationBoardRoot.Entries)
             {
+                //ListViewItem muss zuerst initialisiert werden, da sonst eine NullPointerException geworfen wird
                 lvi[i] = new ListViewItem(stationBoardRoot.Station.Name);
                 lvi[i].SubItems.Add(entry.Name);
                 lvi[i].SubItems.Add(DateTime.Parse(entry.Stop.Departure.ToString()).ToShortTimeString());

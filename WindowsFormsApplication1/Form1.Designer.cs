@@ -66,6 +66,7 @@
             // 
             // cmdShowConnections
             // 
+            this.cmdShowConnections.Enabled = false;
             this.cmdShowConnections.Location = new System.Drawing.Point(6, 81);
             this.cmdShowConnections.Name = "cmdShowConnections";
             this.cmdShowConnections.Size = new System.Drawing.Size(158, 23);
@@ -247,6 +248,7 @@
             // 
             // cmdStationBoard
             // 
+            this.cmdStationBoard.Enabled = false;
             this.cmdStationBoard.Location = new System.Drawing.Point(11, 46);
             this.cmdStationBoard.Name = "cmdStationBoard";
             this.cmdStationBoard.Size = new System.Drawing.Size(152, 23);
@@ -273,22 +275,22 @@
             // clmnAbfahrtStation
             // 
             this.clmnAbfahrtStation.Text = "Abfahrtstation";
-            this.clmnAbfahrtStation.Width = 138;
+            this.clmnAbfahrtStation.Width = 225;
             // 
             // clmnName
             // 
-            this.clmnName.Text = "Name";
+            this.clmnName.Text = "Linie";
             this.clmnName.Width = 112;
             // 
             // clmnAbfahrtsZeit
             // 
             this.clmnAbfahrtsZeit.Text = "Abfahrtszeit";
-            this.clmnAbfahrtsZeit.Width = 120;
+            this.clmnAbfahrtsZeit.Width = 121;
             // 
             // clmnTo
             // 
             this.clmnTo.Text = "Endstation";
-            this.clmnTo.Width = 157;
+            this.clmnTo.Width = 194;
             // 
             // stationBoardDropdown
             // 

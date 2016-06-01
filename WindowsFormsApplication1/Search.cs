@@ -14,6 +14,7 @@ namespace WindowsFormsApplication1
             if (stationEntered.Length > 3)
             {
                 cmo.Items.Clear();
+                //Verhindert das der Cursor resetet wird
                 cmo.SelectionStart = stationEntered.Length;
                 cmo.SelectedItem = null;
                 

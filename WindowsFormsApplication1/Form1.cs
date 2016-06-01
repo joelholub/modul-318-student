@@ -24,53 +24,111 @@ namespace WindowsFormsApplication1
 
         private void startStationDropdown_TextUpdate(object sender, EventArgs e)
         {
-            Object[] dropdownValues = Search.getDropdownValues(startStationDropdown.Text, startStationDropdown, transport);
-
-            if (dropdownValues != null)
+            try
             {
-                startStationDropdown.Items.AddRange(dropdownValues);
+                enableConnectionButton();
+                Object[] dropdownValues = Search.getDropdownValues(startStationDropdown.Text, startStationDropdown, transport);
+
+                // Werte nur ins Dropdown schreiben wenn nicht Null
+                if (dropdownValues != null)
+                {
+                    startStationDropdown.Items.AddRange(dropdownValues);
+                }
             }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+            }
+
+
         }
 
         private void endStationDropdown_TextUpdate(object sender, EventArgs e)
         {
-            Object[] dropdownValues = Search.getDropdownValues(endStationDropdown.Text, endStationDropdown, transport);
-
-            if (dropdownValues != null)
+            try
             {
-                endStationDropdown.Items.AddRange(dropdownValues);
+                enableConnectionButton();
+                Object[] dropdownValues = Search.getDropdownValues(endStationDropdown.Text, endStationDropdown, transport);
+
+                // Werte nur ins Dropdown schreiben wenn nicht Null
+                if (dropdownValues != null)
+                {
+                    endStationDropdown.Items.AddRange(dropdownValues);
+                }
             }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+            }
+            
         }
 
         private void stationBoardDropdown_TextUpdate(object sender, EventArgs e)
         {
-            Object[] dropdownValues = Search.getDropdownValues(stationBoardDropdown.Text, stationBoardDropdown, transport);
-
-            if (dropdownValues != null)
+            //Stationboard Button Disabled wenn keine Station angegeben
+            if (stationBoardDropdown.Text.Length > 0)
             {
-                stationBoardDropdown.Items.AddRange(dropdownValues);
+                cmdStationBoard.Enabled = true;
             }
+            else
+            {
+                cmdStationBoard.Enabled = false;
+            }
+
+            try
+            {
+                Object[] dropdownValues = Search.getDropdownValues(stationBoardDropdown.Text, stationBoardDropdown, transport);
+
+                // Werte nur ins Dropdown schreiben wenn nicht Null
+                if (dropdownValues != null)
+                {
+                    stationBoardDropdown.Items.AddRange(dropdownValues);
+                }
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+            }
+            
         }
 
         private void cmdShowConnections_Click(object sender, EventArgs e)
         {
-            if (!startStationDropdown.Text.Equals("") && !endStationDropdown.Text.Equals(""))
+            //ListView neu Initialisieren
+            lvConnections.Items.Clear();
+            //ListView füllen
+            try
             {
-                lvConnections.Items.Clear();
                 lvConnections.Items.AddRange(ShowConnections.getListViewItems(startStationDropdown.Text, endStationDropdown.Text, transport));
             }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+            }
+            
         }
 
         private void cmdStationBoard_Click(object sender, EventArgs e)
         {
+            //ListView neu Initialisieren
             lvDepartureTable.Items.Clear();
-            lvDepartureTable.Items.AddRange(ShowStationBoards.showStationBoardRoot(stationBoardDropdown.Text, transport));
+            //ListView füllen
+            try
+            {
+                lvDepartureTable.Items.AddRange(ShowStationBoards.showStationBoardRoot(stationBoardDropdown.Text, transport));
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show("Es ist ein Fehler aufgetreten: " + exc.Message);
+            }
+            
         }
 
         private void btnShowStartStationMap_Click(object sender, EventArgs e)
         {
             Stations station = new Stations();
             station = transport.GetStations(startStationDropdown.Text);
+            //Station auf Google Maps anzeigen
             showOnMap(station);
         }
 
@@ -78,6 +136,7 @@ namespace WindowsFormsApplication1
         {
             Stations station = new Stations();
             station = transport.GetStations(endStationDropdown.Text);
+            //Station auf Google Maps Anzeigen
             showOnMap(station);
         }
 
@@ -85,13 +144,17 @@ namespace WindowsFormsApplication1
         {
             Stations station = new Stations();
             station = transport.GetStations(stationBoardDropdown.Text);
+            //Station auf Google Maps anzeigen
             showOnMap(station);
         }
         private void showOnMap(Stations station)
         {
+            //Koordinaten herauslesen
             double xCor = station.StationList.First().Coordinate.XCoordinate;
             double yCor = station.StationList.First().Coordinate.YCoordinate;
+            //Link erstellen für Google Maps
             String mapLink = "https://www.google.ch/maps/?q=" + xCor + "," + yCor + "&z=16?hl=en";
+            //Neues Fenster mit Link öffnen
             Process.Start(mapLink);
         }
 
@@ -101,12 +164,14 @@ namespace WindowsFormsApplication1
             if (startStationDropdown.Text.Length > 0)
             {
                 btnShowStartStationMap.Enabled = true;
+                //Image ändern
                 btnShowStartStationMap.Image = global::WindowsFormsApplication1.Properties.Resources.imgres;
                 btnShowStartStationMap.Refresh();
             }
             else
             {
                 btnShowStartStationMap.Enabled = false;
+                //Image änderns
                 btnShowStartStationMap.Image = global::WindowsFormsApplication1.Properties.Resources.imgres_disabled;
             }
         }
@@ -116,12 +181,14 @@ namespace WindowsFormsApplication1
             if (endStationDropdown.Text.Length > 0)
             {
                 btnShowEndStationMap.Enabled = true;
+                //Image ändern
                 btnShowEndStationMap.Image = global::WindowsFormsApplication1.Properties.Resources.imgres;
                 btnShowEndStationMap.Refresh();
             }
             else
             {
                 btnShowEndStationMap.Enabled = false;
+                //Image ändern
                 btnShowEndStationMap.Image = global::WindowsFormsApplication1.Properties.Resources.imgres_disabled;
             }
         }
@@ -131,12 +198,14 @@ namespace WindowsFormsApplication1
             if (stationBoardDropdown.Text.Length > 0)
             {
                 btnShowStationBoardMap.Enabled = true;
+                //Image ändern
                 btnShowStationBoardMap.Image = global::WindowsFormsApplication1.Properties.Resources.imgres;
                 btnShowStationBoardMap.Refresh();
             }
             else
             {
                 btnShowStationBoardMap.Enabled = false;
+                //Image ändern
                 btnShowStationBoardMap.Image = global::WindowsFormsApplication1.Properties.Resources.imgres_disabled;
             }
         }
@@ -154,6 +223,18 @@ namespace WindowsFormsApplication1
         private void stationBoardDropdown_DropDown(object sender, EventArgs e)
         {
             stationBoardDropdown.Cursor = System.Windows.Forms.Cursors.Arrow;
+        }
+
+        private void enableConnectionButton()
+        {
+            if (startStationDropdown.Text.Length > 0 && endStationDropdown.Text.Length > 0)
+            {
+                cmdShowConnections.Enabled = true;
+            }
+            else
+            {
+                cmdShowConnections.Enabled = false;
+            }
         }
     }
 }

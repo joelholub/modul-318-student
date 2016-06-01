@@ -20,7 +20,7 @@ namespace WindowsFormsApplication1
             int i = 0;
             foreach (var connection in connections.ConnectionList)
             {
-
+                //ListViewItem muss zuerst initialisiert werden, da sonst eine NullPointerException geworfen wird
                 lvi[i] = new ListViewItem(DateTime.Parse(connection.From.Departure).ToShortTimeString());
                 lvi[i].SubItems.Add(connection.From.Station.Name);
                 lvi[i].SubItems.Add(DateTime.Parse(connection.To.Arrival).ToShortTimeString());
