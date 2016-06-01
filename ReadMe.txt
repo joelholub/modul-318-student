@@ -1,0 +1,2 @@
+- Das Dokument liegt im Ordner Dokumente
+- Das Hauptprogramm heisst "WindowsFormsApplication1"
